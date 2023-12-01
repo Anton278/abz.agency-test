@@ -1,0 +1,44 @@
+@import "../../../colors";
+
+.sectionTitle {
+  font-size: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.form {
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.textInputsWrapper {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.radioGroup {
+  margin-bottom: 47px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.radioGroupTitle {
+  line-height: 26px;
+  margin-bottom: 11px;
+}
+
+.formImageUpload {
+  margin-bottom: 50px;
+}
+
+.submitBtnWrapper {
+  text-align: center;
+}
+
+.registerSection {
+  padding-bottom: 100px;
+}
