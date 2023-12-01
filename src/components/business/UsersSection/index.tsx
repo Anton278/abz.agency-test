@@ -26,12 +26,16 @@ function UsersSection() {
       ) : (
         <>
           <div className={s.cardsWrapper}>
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {users.map((user) => (
+              <Card
+                key={user.id}
+                photo={user.photo}
+                name={user.name}
+                position={user.position}
+                email={user.email}
+                phone={user.phone}
+              />
+            ))}
           </div>
           <div className={s.showMoreBtnWrapper}>
             <Button>Show more</Button>
