@@ -10,8 +10,12 @@ function Header() {
         <div className={s.headerInner}>
           <img src="/images/logo.svg" alt="logo" width={104} height={26} />
           <div className={s.headerButtons}>
-            <Button>Users</Button>
-            <Button>Sign up</Button>
+            <Button as="a" href="#users-section">
+              Users
+            </Button>
+            <Button as="a" href="#signup-section">
+              Sign up
+            </Button>
           </div>
         </div>
       </Container>

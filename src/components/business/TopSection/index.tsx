@@ -14,7 +14,9 @@ function TopSection() {
           mind. They should also be excited to learn, as the world of Front-End
           Development keeps evolving.
         </p>
-        <Button>Sign up</Button>
+        <Button as="a" href="#signup-section">
+          Sign up
+        </Button>
       </div>
     </section>
   );

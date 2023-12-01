@@ -9,6 +9,9 @@
   font-family: inherit;
   border: none;
   cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  display: inline-block;
 
   &:hover {
     background: $yellowHover;

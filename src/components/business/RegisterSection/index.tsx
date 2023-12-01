@@ -4,7 +4,7 @@ import s from "./RegisterSection.module.scss";
 
 function RegisterSection() {
   return (
-    <section className={s.registerSection}>
+    <section className={s.registerSection} id="signup-section">
       <h2 className={s.sectionTitle}>Working with POST request</h2>
       <form className={s.form}>
         <div className={s.textInputsWrapper}>

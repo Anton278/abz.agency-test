@@ -1,5 +1,9 @@
 @import url("./fonts/Nunito/index.css");
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   font-size: 16px;
