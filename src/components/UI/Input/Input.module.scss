@@ -32,6 +32,12 @@
   }
 }
 
+.textInputWithValue {
+  & + span {
+    top: 0;
+  }
+}
+
 .errorTextInput {
   border: 2px solid $error;
 

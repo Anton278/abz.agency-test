@@ -35,7 +35,7 @@ function RegisterSection() {
         validationSchema={registerSchema}
         onSubmit={onSubmit}
       >
-        {({ errors, touched, setFieldValue }) => (
+        {({ errors, touched, setFieldValue, values }) => (
           <Form className={s.form}>
             <div className={s.textInputsWrapper}>
               <Input
@@ -44,6 +44,7 @@ function RegisterSection() {
                 name="name"
                 error={errors.name}
                 touched={touched.name}
+                value={values.name}
               />
               <Input
                 type="text"
@@ -51,6 +52,7 @@ function RegisterSection() {
                 name="email"
                 error={errors.email}
                 touched={touched.email}
+                value={values.email}
               />
               <Input
                 type="text"
@@ -59,6 +61,7 @@ function RegisterSection() {
                 name="phone"
                 error={errors.phone}
                 touched={touched.phone}
+                value={values.phone}
               />
             </div>
             <div className={s.radioGroup}>

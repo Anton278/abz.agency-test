@@ -8,6 +8,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   helperText?: string;
   error?: string;
   touched?: boolean;
+  value?: string;
   setFieldValue?: (
     field: string,
     value: any,
@@ -22,6 +23,7 @@ function Input({
   name,
   error,
   touched,
+  value,
   setFieldValue,
   ...otherProps
 }: InputProps) {
@@ -35,7 +37,7 @@ function Input({
               type="text"
               className={`${s.textInput} ${
                 error && touched ? s.errorTextInput : ""
-              }`}
+              } ${value && s.textInputWithValue}`}
               name={name}
             />
             <span>{label}</span>
