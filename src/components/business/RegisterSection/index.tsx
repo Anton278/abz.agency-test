@@ -1,8 +1,11 @@
 import { Formik, Form } from "formik";
+import { useEffect } from "react";
 
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import { registerSchema } from "../../../utils/registerSchema";
+import { usePositions } from "../../../stores/positions";
+import Spinner from "../../UI/Spinner";
 
 import s from "./RegisterSection.module.scss";
 
@@ -15,6 +18,8 @@ export type RegisterInputs = {
 };
 
 function RegisterSection() {
+  const { positions, isLoading, error, getPositions } = usePositions();
+
   const initialValues: RegisterInputs = {
     name: "",
     email: "",
@@ -26,6 +31,10 @@ function RegisterSection() {
   async function onSubmit(values: RegisterInputs) {
     console.log(values);
   }
+
+  useEffect(() => {
+    getPositions();
+  }, []);
 
   return (
     <section className={s.registerSection} id="signup-section">
@@ -64,13 +73,25 @@ function RegisterSection() {
                 value={values.phone}
               />
             </div>
-            <div className={s.radioGroup}>
-              <p className={s.radioGroupTitle}>Select your position</p>
-              <Input type="radio" label="Frontend developer" name="position" />
-              <Input type="radio" label="Backend developer" name="position" />
-              <Input type="radio" label="Designer" name="position" />
-              <Input type="radio" label="QA" name="position" />
-            </div>
+            {error ? (
+              <p className={s.errorMessage}>{error}</p>
+            ) : isLoading ? (
+              <div className={s.spinnerWrapper}>
+                <Spinner />
+              </div>
+            ) : (
+              <div className={s.radioGroup}>
+                <p className={s.radioGroupTitle}>Select your position</p>
+                <Input
+                  type="radio"
+                  label="Frontend developer"
+                  name="position"
+                />
+                <Input type="radio" label="Backend developer" name="position" />
+                <Input type="radio" label="Designer" name="position" />
+                <Input type="radio" label="QA" name="position" />
+              </div>
+            )}
             <div className={s.formImageUpload}>
               <Input
                 type="file"
@@ -80,7 +101,9 @@ function RegisterSection() {
               />
             </div>
             <div className={s.submitBtnWrapper}>
-              <Button type="submit">Sign up</Button>
+              <Button type="submit" disabled={isLoading || !!error}>
+                Sign up
+              </Button>
             </div>
           </Form>
         )}

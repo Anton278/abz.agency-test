@@ -19,6 +19,16 @@
   gap: 50px;
 }
 
+.errorMessage {
+  margin-bottom: 47px;
+  color: $error;
+}
+
+.spinnerWrapper {
+  margin-bottom: 47px;
+  text-align: center;
+}
+
 .radioGroup {
   margin-bottom: 47px;
   display: flex;
