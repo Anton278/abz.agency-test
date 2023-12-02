@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Field, FormikErrors } from "formik";
 import { RegisterInputs } from "../../business/RegisterSection";
 
@@ -9,6 +10,7 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   error?: string;
   touched?: boolean;
   value?: string;
+  firstRadioInput?: boolean;
   setFieldValue?: (
     field: string,
     value: any,
@@ -25,8 +27,15 @@ function Input({
   touched,
   value,
   setFieldValue,
+  firstRadioInput,
   ...otherProps
 }: InputProps) {
+  useEffect(() => {
+    if (firstRadioInput) {
+      setFieldValue && setFieldValue("position", value);
+    }
+  }, []);
+
   switch (type) {
     case undefined:
     case "text":

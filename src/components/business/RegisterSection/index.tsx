@@ -73,25 +73,32 @@ function RegisterSection() {
                 value={values.phone}
               />
             </div>
-            {error ? (
-              <p className={s.errorMessage}>{error}</p>
-            ) : isLoading ? (
-              <div className={s.spinnerWrapper}>
-                <Spinner />
-              </div>
-            ) : (
-              <div className={s.radioGroup}>
-                <p className={s.radioGroupTitle}>Select your position</p>
-                <Input
-                  type="radio"
-                  label="Frontend developer"
-                  name="position"
-                />
-                <Input type="radio" label="Backend developer" name="position" />
-                <Input type="radio" label="Designer" name="position" />
-                <Input type="radio" label="QA" name="position" />
-              </div>
-            )}
+
+            <div className={s.radioGroup}>
+              <p className={s.radioGroupTitle}>Select your position</p>
+              {error ? (
+                <p className={s.errorMessage}>{error}</p>
+              ) : isLoading ? (
+                <div className={s.spinnerWrapper}>
+                  <Spinner />
+                </div>
+              ) : (
+                positions.map((position, i) => {
+                  return (
+                    <Input
+                      type="radio"
+                      label={position.name}
+                      name="position"
+                      key={position.id}
+                      firstRadioInput={i === 0}
+                      value={position.name}
+                      setFieldValue={setFieldValue}
+                    />
+                  );
+                })
+              )}
+            </div>
+
             <div className={s.formImageUpload}>
               <Input
                 type="file"
