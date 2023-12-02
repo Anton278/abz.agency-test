@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+
+  &:hover {
+    .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.tooltip {
+  transition: opacity 0.15s ease-out;
+  transition-delay: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  padding: 3px 16px;
+  line-height: 26px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.87);
+  top: calc(100% + 21px);
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  white-space: nowrap;
+}

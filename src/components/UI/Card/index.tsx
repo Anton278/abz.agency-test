@@ -1,3 +1,5 @@
+import Tooltip from "../Tooltip";
+
 import s from "./Card.module.scss";
 
 type CardProps = {
@@ -14,15 +16,16 @@ function Card({ photo, name, position, email, phone }: CardProps) {
       <div className={s.cardImgWrapper}>
         <img src={photo} alt={name} width={70} height={70} />
       </div>
-      <h5
-        className={s.cardTitle}
-        data-hello="Salvador Stewart Flynn Thomas Salva Salvedor Ilya"
-      >
-        {name}
-      </h5>
+      <Tooltip label={name}>
+        <h5 className={s.cardTitle}>{name}</h5>
+      </Tooltip>
       <p>{position}</p>
-      <p>{email}</p>
-      <p>{phone}</p>
+      <Tooltip label={email}>
+        <p>{email}</p>
+      </Tooltip>
+      <Tooltip label={phone}>
+        <p>{phone}</p>
+      </Tooltip>
     </div>
   );
 }
