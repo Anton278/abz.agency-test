@@ -32,6 +32,22 @@
   }
 }
 
+.errorTextInput {
+  border: 2px solid $error;
+
+  & + span {
+    color: $error;
+  }
+}
+
+.errorMessage {
+  color: $error;
+  margin-top: 4px;
+  margin-left: 16px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
 .inpHelperText {
   margin-top: 4px;
   margin-left: 16px;
@@ -110,5 +126,15 @@
 
   div {
     display: flex;
+  }
+}
+
+.errorInputFile {
+  .uploadBtn {
+    border: 2px solid $error;
+  }
+  .uploadText {
+    border: 2px solid $error;
+    border-left-width: 1px;
   }
 }
