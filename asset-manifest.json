@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/abz.agency-test/static/css/main.34a5efff.css",
+    "main.js": "/abz.agency-test/static/js/main.76451b0d.js",
+    "static/media/background.webp": "/abz.agency-test/static/media/background.c9e4b9ced8fda0121353.webp",
+    "static/media/Nunito-Regular.woff2": "/abz.agency-test/static/media/Nunito-Regular.16489621a9b23085cc59.woff2",
+    "index.html": "/abz.agency-test/index.html",
+    "main.34a5efff.css.map": "/abz.agency-test/static/css/main.34a5efff.css.map",
+    "main.76451b0d.js.map": "/abz.agency-test/static/js/main.76451b0d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.34a5efff.css",
+    "static/js/main.76451b0d.js"
+  ]
+}
