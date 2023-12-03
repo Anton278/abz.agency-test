@@ -21,7 +21,7 @@ function UsersSection() {
   useEffect(() => {
     const init = async () => {
       try {
-        getUsers();
+        await getUsers();
       } catch (err) {
         setError("Failed to get users");
       } finally {
