@@ -33,13 +33,10 @@ export const useUsers = create<UsersState>()(
         });
       },
       createUser: async (token: string, user: CreateUserReq) => {
-        const res = await usersService.create(token, user);
-        const registration_timestamp = Math.floor(Date.now() / 1000);
-        const createdUser = await usersService.getOne(res.user_id);
-        const oldUsers = get().users;
-        set({
-          users: [{ ...createdUser.user, registration_timestamp }, ...oldUsers],
-        });
+        await usersService.create(token, user);
+        const res = await usersService.get(1);
+
+        set({ users: res.users, page: 1, totalPages: res.total_pages });
       },
     }),
     {
