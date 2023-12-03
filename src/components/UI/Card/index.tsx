@@ -14,7 +14,16 @@ function Card({ photo, name, position, email, phone }: CardProps) {
   return (
     <div className={s.card}>
       <div className={s.cardImgWrapper}>
-        <img src={photo} alt={name} width={70} height={70} />
+        <img
+          src={photo}
+          alt={name}
+          width={70}
+          height={70}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null; // prevents looping
+            currentTarget.src = "/images/photo-fallback.svg";
+          }}
+        />
       </div>
       <Tooltip label={name}>
         <h5 className={s.cardTitle}>{name}</h5>
