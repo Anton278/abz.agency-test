@@ -2,4 +2,5 @@
   font-family: "Nunito";
   font-weight: 400;
   src: url("./Nunito-Regular.woff2") format("woff2");
+  font-display: swap;
 }
