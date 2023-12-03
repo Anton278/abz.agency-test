@@ -76,7 +76,7 @@ function RegisterSection() {
       {isRegistered ? (
         <div className={s.imgWrapper}>
           <img
-            src="/images/success-register.webp"
+            src={process.env.PUBLIC_URL + "/images/success-register.webp"}
             alt="Successfully registered"
             width={328}
             height={290}

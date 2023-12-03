@@ -8,7 +8,12 @@ function Header() {
     <header>
       <Container>
         <div className={s.headerInner}>
-          <img src="/images/logo.svg" alt="logo" width={104} height={26} />
+          <img
+            src={process.env.PUBLIC_URL + "/images/logo.svg"}
+            alt="logo"
+            width={104}
+            height={26}
+          />
           <div className={s.headerButtons}>
             <Button as="a" href="#users-section">
               Users
