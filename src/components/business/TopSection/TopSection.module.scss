@@ -10,11 +10,16 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 140px;
+
+  @media (max-width: 1024px) {
+    height: 500px;
+  }
 }
 
 .topSectionInner {
   max-width: 380px;
   text-align: center;
+  padding: 0 16px;
 }
 
 .title {

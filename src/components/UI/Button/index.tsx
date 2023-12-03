@@ -6,9 +6,15 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string;
 };
 
-function Button({ children, as = "button", href, ...otherProps }: ButtonProps) {
+function Button({
+  children,
+  as = "button",
+  href,
+  className,
+  ...otherProps
+}: ButtonProps) {
   return as === "button" ? (
-    <button className={s.button} {...otherProps}>
+    <button className={`${s.button} ${className}`} {...otherProps}>
       {children}
     </button>
   ) : (

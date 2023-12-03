@@ -57,7 +57,9 @@ function UsersSection() {
           </div>
           <div className={s.showMoreBtnWrapper}>
             {page !== totalPages && (
-              <Button onClick={handleShowMore}>Show more</Button>
+              <Button onClick={handleShowMore} className={s.showMoreBtn}>
+                Show more
+              </Button>
             )}
           </div>
         </>

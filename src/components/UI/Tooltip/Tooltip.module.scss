@@ -23,5 +23,13 @@
   left: 50%;
   transform: translateX(-50%);
   color: #fff;
-  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    max-width: 300px;
+    overflow-wrap: break-word;
+  }
+  @media (max-width: 600px) {
+    max-width: 270px;
+    overflow-wrap: break-word;
+  }
 }

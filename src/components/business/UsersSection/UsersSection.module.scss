@@ -4,6 +4,10 @@
   margin-bottom: 140px;
 }
 
+.showMoreBtn {
+  width: 120px;
+}
+
 .sectionTitle {
   font-size: 40px;
   line-height: 40px;
@@ -24,6 +28,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 29px;
   margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 .showMoreBtnWrapper {
