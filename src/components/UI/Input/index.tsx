@@ -32,7 +32,7 @@ function Input({
 }: InputProps) {
   useEffect(() => {
     if (firstRadioInput) {
-      setFieldValue && setFieldValue("position", value);
+      setFieldValue && setFieldValue("position_id", value);
     }
   }, []);
 
@@ -62,7 +62,7 @@ function Input({
     case "radio":
       return (
         <label className={s.radioInp}>
-          <Field type="radio" name={name} value={label} {...otherProps} />
+          <Field type="radio" name={name} value={value} {...otherProps} />
           <span className={s.checkmark}></span>
           <span>{label}</span>
         </label>

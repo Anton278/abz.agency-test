@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 
 import usersService from "../services/users";
 import { User } from "../models/User";
+import { CreateUserReq } from "../models/requests/createUser";
 
 interface UsersState {
   users: User[];
@@ -10,11 +11,12 @@ interface UsersState {
   error: string;
 
   getUsers: () => Promise<void>;
+  createUser: (token: string, user: CreateUserReq) => Promise<void>;
 }
 
 export const useUsers = create<UsersState>()(
   devtools(
-    (set) => ({
+    (set, get) => ({
       users: [],
       isLoading: true,
       error: "",
@@ -26,6 +28,15 @@ export const useUsers = create<UsersState>()(
         } catch (err) {
           set({ isLoading: false, error: "Failed to get users" });
         }
+      },
+      createUser: async (token: string, user: CreateUserReq) => {
+        const res = await usersService.create(token, user);
+        const registration_timestamp = Math.floor(Date.now() / 1000);
+        const createdUser = await usersService.getOne(res.user_id);
+        const oldUsers = get().users;
+        set({
+          users: [{ ...createdUser.user, registration_timestamp }, ...oldUsers],
+        });
       },
     }),
     {

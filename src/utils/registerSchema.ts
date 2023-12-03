@@ -9,6 +9,6 @@ export const registerSchema = Yup.object({
   phone: Yup.string()
     .matches(/^(\+380)|(\+38 0)/g, "Phone should start with +380")
     .required("Required"),
-  position: Yup.string().required("Required"),
+  position_id: Yup.string().required("Required"),
   photo: Yup.string().required("Required"),
 });

@@ -1,11 +1,14 @@
 import { Formik, Form } from "formik";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
 import { registerSchema } from "../../../utils/registerSchema";
 import { usePositions } from "../../../stores/positions";
 import Spinner from "../../UI/Spinner";
+import tokensService from "../../../services/tokens";
+import { useUsers } from "../../../stores/users";
+import { CreateUserReq } from "../../../models/requests/createUser";
 
 import s from "./RegisterSection.module.scss";
 
@@ -13,23 +16,42 @@ export type RegisterInputs = {
   name: string;
   email: string;
   phone: string;
-  position: string;
-  photo: string;
+  position_id: string;
+  photo: File | string;
 };
 
 function RegisterSection() {
+  const createUser = useUsers((state) => state.createUser);
   const { positions, isLoading, error, getPositions } = usePositions();
+  const [isCreating, setIsCreating] = useState(false);
+  const [createError, setCreateError] = useState("");
 
   const initialValues: RegisterInputs = {
     name: "",
     email: "",
     phone: "",
-    position: "Frontend developer",
+    position_id: "",
     photo: "",
   };
 
   async function onSubmit(values: RegisterInputs) {
-    console.log(values);
+    setCreateError("");
+    setIsCreating(true);
+    const user: CreateUserReq = {
+      email: values.email,
+      name: values.name,
+      phone: values.phone,
+      photo: values.photo as File,
+      position_id: values.position_id,
+    };
+    try {
+      const { token } = await tokensService.create();
+      await createUser(token, user);
+    } catch (err) {
+      setCreateError("Failed to register");
+    } finally {
+      setIsCreating(false);
+    }
   }
 
   useEffect(() => {
@@ -73,7 +95,6 @@ function RegisterSection() {
                 value={values.phone}
               />
             </div>
-
             <div className={s.radioGroup}>
               <p className={s.radioGroupTitle}>Select your position</p>
               {error ? (
@@ -88,17 +109,16 @@ function RegisterSection() {
                     <Input
                       type="radio"
                       label={position.name}
-                      name="position"
+                      name="position_id"
                       key={position.id}
                       firstRadioInput={i === 0}
-                      value={position.name}
+                      value={`${position.id}`}
                       setFieldValue={setFieldValue}
                     />
                   );
                 })
               )}
             </div>
-
             <div className={s.formImageUpload}>
               <Input
                 type="file"
@@ -108,10 +128,18 @@ function RegisterSection() {
               />
             </div>
             <div className={s.submitBtnWrapper}>
-              <Button type="submit" disabled={isLoading || !!error}>
+              <Button
+                type="submit"
+                disabled={isLoading || !!error || isCreating}
+              >
                 Sign up
               </Button>
             </div>
+            {createError && (
+              <div className={s.errorMessageWrapper}>
+                <p className={s.errorMessage}>{createError}</p>
+              </div>
+            )}
           </Form>
         )}
       </Formik>
