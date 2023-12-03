@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "../../UI/Button";
 import Card from "../../UI/Card";
@@ -8,10 +8,28 @@ import Spinner from "../../UI/Spinner";
 import s from "./UsersSection.module.scss";
 
 function UsersSection() {
-  const { users, isLoading, error, getUsers } = useUsers();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const { users, getUsers, page, totalPages } = useUsers();
+
+  const handleShowMore = async () => {
+    try {
+      await getUsers(page + 1);
+    } catch (err) {}
+  };
 
   useEffect(() => {
-    getUsers();
+    const init = async () => {
+      try {
+        getUsers();
+      } catch (err) {
+        setError("Failed to get users");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    init();
   }, []);
 
   return (
@@ -38,7 +56,9 @@ function UsersSection() {
             ))}
           </div>
           <div className={s.showMoreBtnWrapper}>
-            <Button>Show more</Button>
+            {page !== totalPages && (
+              <Button onClick={handleShowMore}>Show more</Button>
+            )}
           </div>
         </>
       )}

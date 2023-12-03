@@ -7,10 +7,10 @@ import { CreateUserReq } from "../models/requests/createUser";
 
 interface UsersState {
   users: User[];
-  isLoading: boolean;
-  error: string;
+  page: number;
+  totalPages: number;
 
-  getUsers: () => Promise<void>;
+  getUsers: (page?: number) => Promise<void>;
   createUser: (token: string, user: CreateUserReq) => Promise<void>;
 }
 
@@ -18,16 +18,19 @@ export const useUsers = create<UsersState>()(
   devtools(
     (set, get) => ({
       users: [],
-      isLoading: true,
-      error: "",
+      page: 1,
+      totalPages: 1,
 
-      getUsers: async () => {
-        try {
-          const res = await usersService.get();
-          set({ users: res.users, isLoading: false });
-        } catch (err) {
-          set({ isLoading: false, error: "Failed to get users" });
+      getUsers: async (page) => {
+        if (page) {
+          set({ page });
         }
+        const { users: oldUsers } = get();
+        const res = await usersService.get(page);
+        set({
+          users: [...oldUsers, ...res.users],
+          totalPages: res.total_pages,
+        });
       },
       createUser: async (token: string, user: CreateUserReq) => {
         const res = await usersService.create(token, user);
