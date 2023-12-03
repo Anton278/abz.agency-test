@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik";
 import { useEffect, useState } from "react";
+import { AxiosError } from "axios";
 
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
@@ -49,8 +50,13 @@ function RegisterSection() {
       const { token } = await tokensService.create();
       await createUser(token, user);
       setIsRegistered(true);
-    } catch (err) {
-      setCreateError("Failed to register");
+    } catch (err: any) {
+      const error = err as AxiosError;
+      setCreateError(
+        error.response?.status == 409
+          ? "User with this phone or email already exist"
+          : "Failed to register"
+      );
     } finally {
       setIsCreating(false);
     }
