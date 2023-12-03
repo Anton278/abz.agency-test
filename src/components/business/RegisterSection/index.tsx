@@ -25,6 +25,7 @@ function RegisterSection() {
   const { positions, isLoading, error, getPositions } = usePositions();
   const [isCreating, setIsCreating] = useState(false);
   const [createError, setCreateError] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const initialValues: RegisterInputs = {
     name: "",
@@ -47,6 +48,7 @@ function RegisterSection() {
     try {
       const { token } = await tokensService.create();
       await createUser(token, user);
+      setIsRegistered(true);
     } catch (err) {
       setCreateError("Failed to register");
     } finally {
@@ -60,89 +62,104 @@ function RegisterSection() {
 
   return (
     <section className={s.registerSection} id="signup-section">
-      <h2 className={s.sectionTitle}>Working with POST request</h2>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={registerSchema}
-        onSubmit={onSubmit}
-      >
-        {({ errors, touched, setFieldValue, values }) => (
-          <Form className={s.form}>
-            <div className={s.textInputsWrapper}>
-              <Input
-                type="text"
-                label="Your name"
-                name="name"
-                error={errors.name}
-                touched={touched.name}
-                value={values.name}
-              />
-              <Input
-                type="text"
-                label="Email"
-                name="email"
-                error={errors.email}
-                touched={touched.email}
-                value={values.email}
-              />
-              <Input
-                type="text"
-                label="Phone"
-                helperText="+38 (XXX) XXX - XX - XX"
-                name="phone"
-                error={errors.phone}
-                touched={touched.phone}
-                value={values.phone}
-              />
-            </div>
-            <div className={s.radioGroup}>
-              <p className={s.radioGroupTitle}>Select your position</p>
-              {error ? (
-                <p className={s.errorMessage}>{error}</p>
-              ) : isLoading ? (
-                <div className={s.spinnerWrapper}>
-                  <Spinner />
-                </div>
-              ) : (
-                positions.map((position, i) => {
-                  return (
-                    <Input
-                      type="radio"
-                      label={position.name}
-                      name="position_id"
-                      key={position.id}
-                      firstRadioInput={i === 0}
-                      value={`${position.id}`}
-                      setFieldValue={setFieldValue}
-                    />
-                  );
-                })
-              )}
-            </div>
-            <div className={s.formImageUpload}>
-              <Input
-                type="file"
-                setFieldValue={setFieldValue}
-                error={errors.photo}
-                touched={touched.photo}
-              />
-            </div>
-            <div className={s.submitBtnWrapper}>
-              <Button
-                type="submit"
-                disabled={isLoading || !!error || isCreating}
-              >
-                Sign up
-              </Button>
-            </div>
-            {createError && (
-              <div className={s.errorMessageWrapper}>
-                <p className={s.errorMessage}>{createError}</p>
+      <h2 className={s.sectionTitle}>
+        {isRegistered
+          ? "User successfully registered"
+          : "Working with POST request"}
+      </h2>
+      {isRegistered ? (
+        <div className={s.imgWrapper}>
+          <img
+            src="/images/success-register.png"
+            alt="Successfully registered"
+            width={328}
+            height={290}
+          />
+        </div>
+      ) : (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={registerSchema}
+          onSubmit={onSubmit}
+        >
+          {({ errors, touched, setFieldValue, values }) => (
+            <Form className={s.form}>
+              <div className={s.textInputsWrapper}>
+                <Input
+                  type="text"
+                  label="Your name"
+                  name="name"
+                  error={errors.name}
+                  touched={touched.name}
+                  value={values.name}
+                />
+                <Input
+                  type="text"
+                  label="Email"
+                  name="email"
+                  error={errors.email}
+                  touched={touched.email}
+                  value={values.email}
+                />
+                <Input
+                  type="text"
+                  label="Phone"
+                  helperText="+38 (XXX) XXX - XX - XX"
+                  name="phone"
+                  error={errors.phone}
+                  touched={touched.phone}
+                  value={values.phone}
+                />
               </div>
-            )}
-          </Form>
-        )}
-      </Formik>
+              <div className={s.radioGroup}>
+                <p className={s.radioGroupTitle}>Select your position</p>
+                {error ? (
+                  <p className={s.errorMessage}>{error}</p>
+                ) : isLoading ? (
+                  <div className={s.spinnerWrapper}>
+                    <Spinner />
+                  </div>
+                ) : (
+                  positions.map((position, i) => {
+                    return (
+                      <Input
+                        type="radio"
+                        label={position.name}
+                        name="position_id"
+                        key={position.id}
+                        firstRadioInput={i === 0}
+                        value={`${position.id}`}
+                        setFieldValue={setFieldValue}
+                      />
+                    );
+                  })
+                )}
+              </div>
+              <div className={s.formImageUpload}>
+                <Input
+                  type="file"
+                  setFieldValue={setFieldValue}
+                  error={errors.photo}
+                  touched={touched.photo}
+                />
+              </div>
+              <div className={s.submitBtnWrapper}>
+                <Button
+                  type="submit"
+                  disabled={isLoading || !!error || isCreating}
+                >
+                  Sign up
+                </Button>
+              </div>
+              {createError && (
+                <div className={s.errorMessageWrapper}>
+                  <p className={s.errorMessage}>{createError}</p>
+                </div>
+              )}
+            </Form>
+          )}
+        </Formik>
+      )}
     </section>
   );
 }
