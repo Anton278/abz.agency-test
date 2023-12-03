@@ -58,4 +58,11 @@
 
 .imgWrapper {
   text-align: center;
+
+  @media (max-width: 330px) {
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
 }
