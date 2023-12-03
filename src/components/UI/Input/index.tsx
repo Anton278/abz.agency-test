@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Field, FormikErrors } from "formik";
 import { RegisterInputs } from "../../business/RegisterSection";
 
@@ -30,6 +30,8 @@ function Input({
   firstRadioInput,
   ...otherProps
 }: InputProps) {
+  const [fileName, setFileName] = useState<string | undefined>("");
+
   useEffect(() => {
     if (firstRadioInput) {
       setFieldValue && setFieldValue("position_id", value);
@@ -79,16 +81,23 @@ function Input({
             <input
               type="file"
               accept=".jpg, .jpeg"
-              onChange={(e) =>
+              onChange={(e) => {
                 setFieldValue &&
-                setFieldValue("photo", e.currentTarget.files?.[0])
-              }
+                  setFieldValue("photo", e.currentTarget.files?.[0]);
+                setFileName(e.currentTarget.files?.[0]?.name);
+              }}
             />
             <div>
               <button className={s.uploadBtn} type="button">
                 Upload
               </button>
-              <div className={s.uploadText}>Upload your photo</div>
+              <div
+                className={`${s.uploadText} ${
+                  fileName ? s.uploadTextBlack : ""
+                }`}
+              >
+                {fileName ? fileName : "Upload your photo"}
+              </div>
             </div>
           </label>
           {error && touched ? <p className={s.errorMessage}>{error}</p> : null}
